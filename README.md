@@ -31,7 +31,7 @@ To get the backend part of this project running, you'll need to have **Docker** 
 #### Cloning the Repository
 
 ```bash
-git clone <your-repository-url>
+git clone <https://github.com/ATalhaTimur/Full-Stack-Flight-Search-System>
 cd FlightSearchAPI
 ```
 
