@@ -30,6 +30,16 @@ public class FlightService {
         return flightRepository.save(flight);
     }
 
+    public List<Flight> findFlights(String departureAirportCode, String arrivalAirportCode, String departureDate, String returnDate) {
+        if (returnDate != null) {
+            // Eğer dönüş tarihi de verilmişse ona göre sorgu yapabiliriz
+            return flightRepository.findByDepartureAndArrivalAndDate(departureAirportCode, arrivalAirportCode, departureDate, returnDate);
+        } else {
+            // Eğer sadece gidiş tarihi varsa buna göre arama yap
+            return flightRepository.findByDepartureAndArrivalAndDate(departureAirportCode, arrivalAirportCode, departureDate);
+        }
+    }
+
     public Flight updateFlight(String flightNumber, Flight updatedFlight) {
         Optional<Flight> existingFlight = flightRepository.findById(flightNumber);
         if (!existingFlight.isPresent()) {

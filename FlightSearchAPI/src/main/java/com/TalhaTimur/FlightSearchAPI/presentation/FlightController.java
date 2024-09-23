@@ -51,6 +51,20 @@ public class FlightController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Flight not found");
         }
     }
+    @GetMapping("/find-available-flights")
+    public ResponseEntity<List<Flight>> findAvailableFlights(
+            @RequestParam String departureAirportCode,
+            @RequestParam String arrivalAirportCode,
+            @RequestParam String departureDate,
+            @RequestParam(required = false) String returnDate) {
+
+        List<Flight> flights = flightService.findFlights(departureAirportCode, arrivalAirportCode, departureDate, returnDate);
+
+        if (flights.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(flights, HttpStatus.OK);
+    }
 
     @GetMapping("/departure/{departureAirportCode}")
     public List<Flight> getFlightsByDepartureAirportCode(@PathVariable String departureAirportCode) {
